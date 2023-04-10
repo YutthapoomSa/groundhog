@@ -99,6 +99,12 @@ export class DeviceDB extends Document {
 
     @Prop({
         type: MongooseSchema.Types.String,
+        required: true,
+    })
+    id_elk: string;
+
+    @Prop({
+        type: MongooseSchema.Types.String,
     })
     date_data: string;
 
