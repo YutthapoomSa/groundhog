@@ -21,11 +21,9 @@ export class TypeService implements OnApplicationBootstrap {
     async create(createTypeDto: CreateTypeDto) {
         const tag = this.create.name;
         try {
-            const type = new this.typeModel({
-                indoor: createTypeDto.indoor || null,
-                outdoor: createTypeDto.outdoor || null,
-                air: createTypeDto.air || null,
-            });
+            const type = new this.typeModel();
+            type.type_name = createTypeDto.type_name ? createTypeDto.type_name : null;
+            type.iframe_url = createTypeDto.iframe_url ? createTypeDto.iframe_url : null;
 
             const result = await type.save();
             return result;

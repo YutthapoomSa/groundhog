@@ -1,9 +1,33 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsDate, IsNotEmpty, IsNumber, IsObject, IsString } from 'class-validator';
-import { ObjectId } from 'mongoose';
-import { ResStatus } from './../../../share/enum/res-status.enum';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 import moment = require('moment-timezone');
-import { DeviceDB } from 'src/entities/device.entity';
+
+export class SiteData {
+    @ApiProperty()
+    @IsOptional()
+    site_id: string;
+
+    @ApiProperty()
+    @IsString()
+    site_name: string;
+
+    @ApiProperty()
+    @IsNumber()
+    coor_lat: number;
+
+    @ApiProperty()
+    @IsNumber()
+    coor_lon: number;
+}
+export class TypeData {
+    @ApiProperty()
+    @IsOptional()
+    type_id: string;
+
+    @ApiProperty()
+    @IsString()
+    type_name: string;
+}
 
 export class CreateResDeviceDto {
     @ApiProperty()
@@ -65,141 +89,151 @@ export class CreateResDeviceDto {
     date_data: string;
 
     @ApiProperty()
-    @IsString()
-    site_id: string;
+    @IsNumber()
+    coor_lat: number;
 
     @ApiProperty()
-    @IsString()
-    type_id: string;
+    @IsNumber()
+    coor_lon: number;
+
+    @ApiProperty({
+        type: [SiteData],
+    })
+    site: SiteData[];
+
+    @ApiProperty({
+        type: [TypeData],
+    })
+    type: TypeData[];
 }
 // ─────────────────────────────────────────────────────────────────────────────
 
-export class SiteResData {
-    @ApiProperty()
-    _id: ObjectId;
-    @ApiProperty()
-    site_name: string;
-    @ApiProperty()
-    coor_lat: number;
-    @ApiProperty()
-    coor_lon: number;
-}
+// export class SiteResData {
+//     @ApiProperty()
+//     _id: ObjectId;
+//     @ApiProperty()
+//     site_name: string;
+//     @ApiProperty()
+//     coor_lat: number;
+//     @ApiProperty()
+//     coor_lon: number;
+// }
 
-export class TypeResData {
-    @ApiProperty()
-    _id: ObjectId;
-    @ApiProperty()
-    indoor: string;
-    @ApiProperty()
-    outdoor: string;
-    @ApiProperty()
-    air: string;
-}
+// export class TypeResData {
+//     @ApiProperty()
+//     _id: ObjectId;
+//     @ApiProperty()
+//     indoor: string;
+//     @ApiProperty()
+//     outdoor: string;
+//     @ApiProperty()
+//     air: string;
+// }
 
-export class CreateResDeviceDTOData {
-    @ApiProperty()
-    id: ObjectId;
-    @ApiProperty()
-    serial_number: string;
-    @ApiProperty()
-    device_name: string;
-    @ApiProperty()
-    pm2: number;
-    @ApiProperty()
-    pm10: number;
-    @ApiProperty()
-    heat_index: number;
-    @ApiProperty()
-    humidity: number;
-    @ApiProperty()
-    temperature: number;
-    @ApiProperty()
-    altitude: number;
-    @ApiProperty()
-    speed: number;
-    @ApiProperty()
-    light_detection: number;
-    @ApiProperty()
-    noise: number;
-    @ApiProperty()
-    carbon_dioxide: number;
-    @ApiProperty()
-    battery: number;
-    @ApiProperty({ example: moment().tz('Asia/Bangkok').format('DD MMM YYYY, HH:mm:ss') })
-    date_data: string;
-    @ApiProperty({
-        type: () => [SiteResData],
-    })
-    @IsArray()
-    siteList: SiteResData[];
-    @ApiProperty({
-        type: () => [TypeResData],
-    })
-    @IsArray()
-    typeList: TypeResData[];
-}
+// export class CreateResDeviceDTOData {
+//     @ApiProperty()
+//     id: ObjectId;
+//     @ApiProperty()
+//     serial_number: string;
+//     @ApiProperty()
+//     device_name: string;
+//     @ApiProperty()
+//     pm2: number;
+//     @ApiProperty()
+//     pm10: number;
+//     @ApiProperty()
+//     heat_index: number;
+//     @ApiProperty()
+//     humidity: number;
+//     @ApiProperty()
+//     temperature: number;
+//     @ApiProperty()
+//     altitude: number;
+//     @ApiProperty()
+//     speed: number;
+//     @ApiProperty()
+//     light_detection: number;
+//     @ApiProperty()
+//     noise: number;
+//     @ApiProperty()
+//     carbon_dioxide: number;
+//     @ApiProperty()
+//     battery: number;
+//     @ApiProperty({ example: moment().tz('Asia/Bangkok').format('DD MMM YYYY, HH:mm:ss') })
+//     date_data: string;
+//     @ApiProperty({
+//         type: () => [SiteResData],
+//     })
+//     @IsArray()
+//     siteList: SiteResData[];
+//     @ApiProperty({
+//         type: () => [TypeResData],
+//     })
+//     @IsArray()
+//     typeList: TypeResData[];
+// }
 
-export class CreateResDeviceDTO {
-    @ApiProperty({
-        enum: Object.keys(ResStatus).map((k) => ResStatus[k]),
-        description: 'รหัสสถานะ',
-    })
-    resCode: ResStatus;
+// export class CreateResDeviceDTO {
+//     @ApiProperty({
+//         enum: Object.keys(ResStatus).map((k) => ResStatus[k]),
+//         description: 'รหัสสถานะ',
+//     })
+//     resCode: ResStatus;
 
-    @ApiProperty({
-        type: () => CreateResDeviceDTOData,
-        description: 'ข้อมูล',
-    })
-    resData: CreateResDeviceDTOData;
+//     @ApiProperty({
+//         type: () => CreateResDeviceDTOData,
+//         description: 'ข้อมูล',
+//     })
+//     resData: CreateResDeviceDTOData;
 
-    @ApiProperty({
-        description: 'ข้อความอธิบาย',
-    })
-    msg: string;
+//     @ApiProperty({
+//         description: 'ข้อความอธิบาย',
+//     })
+//     msg: string;
 
-    constructor(resCode: ResStatus, msg: string, datas: DeviceDB) {
-        this.resCode = resCode;
-        this.msg = msg;
-        this.resData = new CreateResDeviceDTOData();
+//     constructor(resCode: ResStatus, msg: string, datas: DeviceDB) {
+//         this.resCode = resCode;
+//         this.msg = msg;
+//         this.resData = new CreateResDeviceDTOData();
 
-        if (!!datas) {
-            this.resData.id = datas._id;
-            this.resData.device_name = datas.device_name;
-            this.resData.serial_number = datas.serial_number;
-            this.resData.pm2 = datas.pm2;
-            this.resData.pm10 = datas.pm10;
-            this.resData.heat_index = datas.heat_index;
-            this.resData.humidity = datas.humidity;
-            this.resData.temperature = datas.temperature;
-            this.resData.altitude = datas.altitude;
-            this.resData.speed = datas.speed;
-            this.resData.light_detection = datas.light_detection;
-            this.resData.noise = datas.noise;
-            this.resData.carbon_dioxide = datas.carbon_dioxide;
-            this.resData.battery = datas.battery;
-            this.resData.date_data = datas.date_data;
-            this.resData.siteList = [];
-            if (!!this.resData.siteList && this.resData.siteList.length > 0) {
-                for (const iterator of this.resData.siteList) {
-                    const _site = new SiteResData();
-                    _site._id = iterator._id;
-                    _site.site_name = iterator.site_name;
-                    _site.coor_lat = iterator.coor_lat;
-                    _site.coor_lon = iterator.coor_lon;
-                    this.resData.siteList.push(_site);
-                }
-            }
-            this.resData.typeList = [];
-            if (!!this.resData.typeList && this.resData.typeList.length > 0) {
-                for (const iterator2 of this.resData.typeList) {
-                    const _type = new TypeResData();
-                    _type._id = iterator2._id;
-                    _type.indoor = iterator2.indoor;
-                    _type.outdoor = iterator2.outdoor;
-                    _type.air = iterator2.air;
-                    this.resData.typeList.push(_type);
-                }
-            }
-        }
-    }
-}
+//         if (!!datas) {
+//             this.resData.id = datas._id;
+//             this.resData.device_name = datas.device_name;
+//             this.resData.serial_number = datas.serial_number;
+//             this.resData.pm2 = datas.pm2;
+//             this.resData.pm10 = datas.pm10;
+//             this.resData.heat_index = datas.heat_index;
+//             this.resData.humidity = datas.humidity;
+//             this.resData.temperature = datas.temperature;
+//             this.resData.altitude = datas.altitude;
+//             this.resData.speed = datas.speed;
+//             this.resData.light_detection = datas.light_detection;
+//             this.resData.noise = datas.noise;
+//             this.resData.carbon_dioxide = datas.carbon_dioxide;
+//             this.resData.battery = datas.battery;
+//             this.resData.date_data = datas.date_data;
+//             this.resData.siteList = [];
+//             if (!!this.resData.siteList && this.resData.siteList.length > 0) {
+//                 for (const iterator of this.resData.siteList) {
+//                     const _site = new SiteResData();
+//                     _site._id = iterator._id;
+//                     _site.site_name = iterator.site_name;
+//                     _site.coor_lat = iterator.coor_lat;
+//                     _site.coor_lon = iterator.coor_lon;
+//                     this.resData.siteList.push(_site);
+//                 }
+//             }
+//             this.resData.typeList = [];
+//             if (!!this.resData.typeList && this.resData.typeList.length > 0) {
+//                 for (const iterator2 of this.resData.typeList) {
+//                     const _type = new TypeResData();
+//                     _type._id = iterator2._id;
+//                     _type.indoor = iterator2.indoor;
+//                     _type.outdoor = iterator2.outdoor;
+//                     _type.air = iterator2.air;
+//                     this.resData.typeList.push(_type);
+//                 }
+//             }
+//         }
+//     }
+// }

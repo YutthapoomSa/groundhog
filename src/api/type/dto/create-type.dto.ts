@@ -4,13 +4,9 @@ import { IsNotEmpty, IsString } from 'class-validator';
 export class CreateTypeDto {
     @ApiProperty()
     @IsString()
-    indoor: string;
+    type_name: string;
 
     @ApiProperty()
     @IsString()
-    outdoor: string;
-
-    @ApiProperty()
-    @IsString()
-    air: string;
+    iframe_url: string;
 }

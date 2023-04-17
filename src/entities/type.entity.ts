@@ -9,25 +9,22 @@ export class TypeDB extends Document {
     @Prop({
         type: MongooseSchema.Types.String,
         allownull: true,
-        unique: true,
         required: false,
     })
-    indoor: string;
+    type_name: string;
 
     @Prop({
         type: MongooseSchema.Types.String,
         allownull: true,
-        unique: true,
         required: false,
     })
-    outdoor: string;
+    iframe_url: string;
 
-    @Prop({
-        type: MongooseSchema.Types.String,
-        unique: true,
-        allownull: true,
-        required: false,
-    })
-    air: string;
+    // @Prop({
+    //     type: MongooseSchema.Types.Number,
+    //     required: true,
+    //     enum: [1, 2],
+    // })
+    // status: number;
 }
 export const TypeSchema = SchemaFactory.createForClass(TypeDB);

@@ -24,5 +24,12 @@ export class SiteDB extends Document {
         lat: number;
         lon: number;
     };
+
+    @Prop({
+        type: MongooseSchema.Types.Number,
+        required: true,
+        enum: [1, 2],
+    })
+    status: number;
 }
 export const SiteSchema = SchemaFactory.createForClass(SiteDB);
