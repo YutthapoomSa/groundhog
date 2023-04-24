@@ -8,23 +8,16 @@ import { Document, Schema as MongooseSchema } from 'mongoose';
 export class TypeDB extends Document {
     @Prop({
         type: MongooseSchema.Types.String,
-        allownull: true,
-        required: false,
+        required: true,
+        unique: false, // ตั้งค่าเป็น false เพื่อให้ข้อมูลซ้ำกันได้
     })
     type_name: string;
 
     @Prop({
         type: MongooseSchema.Types.String,
-        allownull: true,
-        required: false,
+        required: true,
+        unique: false, // ตั้งค่าเป็น false เพื่อให้ข้อมูลซ้ำกันได้
     })
     iframe_url: string;
-
-    // @Prop({
-    //     type: MongooseSchema.Types.Number,
-    //     required: true,
-    //     enum: [1, 2],
-    // })
-    // status: number;
 }
 export const TypeSchema = SchemaFactory.createForClass(TypeDB);

@@ -122,17 +122,30 @@ export class DeviceDB extends Document {
 
     // ─────────────────────────────────────────────────────────────────────
     @Prop({
-        type: [MongooseSchema.Types.ObjectId],
-        ref: SiteDB.name,
-        required: false,
+        type: [{ type: MongooseSchema.Types.ObjectId, ref: SiteDB.name }],
+        required: true,
+        unique: true,
     })
-    site: SiteDB[];
+    siteList: SiteDB[];
 
     @Prop({
-        type: [MongooseSchema.Types.ObjectId],
-        ref: TypeDB.name,
-        required: false,
+        type: [{ type: MongooseSchema.Types.ObjectId, ref: TypeDB.name }],
+        required: true,
     })
-    type: TypeDB[];
+    typeList: TypeDB[];
+
+    // @Prop({
+    //     type: MongooseSchema.Types.ObjectId,
+    //     ref: SiteDB.name,
+    //     required: false,
+    // })
+    // site_id: MongooseSchema.Types.ObjectId
+
+    // @Prop({
+    //     type: MongooseSchema.Types.ObjectId,
+    //     ref: SiteDB.name,
+    //     required: false,
+    // })
+    // type_id: MongooseSchema.Types.ObjectId
 }
 export const DeviceSchema = SchemaFactory.createForClass(DeviceDB);

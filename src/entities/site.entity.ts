@@ -8,8 +8,8 @@ import { Document, Schema as MongooseSchema } from 'mongoose';
 export class SiteDB extends Document {
     @Prop({
         type: MongooseSchema.Types.String,
-        allownull: true,
         required: true,
+        unique: true,
     })
     site_name: string;
 
@@ -19,6 +19,7 @@ export class SiteDB extends Document {
             lon: { type: MongooseSchema.Types.Number, allownull: true },
         },
         _id: false,
+        unique: true,
     })
     coor: {
         lat: number;
@@ -27,7 +28,9 @@ export class SiteDB extends Document {
 
     @Prop({
         type: MongooseSchema.Types.Number,
-        required: true,
+        allownull: true,
+        required: false,
+        unique: true,
         enum: [1, 2],
     })
     status: number;

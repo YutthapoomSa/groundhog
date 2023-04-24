@@ -1,11 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
-import moment = require('moment-timezone');
+// import moment = require('moment-timezone')
 
 export class SiteData {
-    @ApiProperty()
-    @IsOptional()
-    site_id: string;
+    // @ApiProperty()
+    // @IsOptional()
+    // site_id: string;
 
     @ApiProperty()
     @IsString()
@@ -20,13 +20,17 @@ export class SiteData {
     coor_lon: number;
 }
 export class TypeData {
-    @ApiProperty()
-    @IsOptional()
-    type_id: string;
+    // @ApiProperty()
+    // @IsOptional()
+    // type_id: string;
 
     @ApiProperty()
     @IsString()
     type_name: string;
+   
+    @ApiProperty()
+    @IsString()
+    iframe_url: string;
 }
 
 export class CreateResDeviceDto {
@@ -95,6 +99,14 @@ export class CreateResDeviceDto {
     @ApiProperty()
     @IsNumber()
     coor_lon: number;
+
+    // @ApiProperty()
+    // @IsOptional()
+    // site_id: string;
+
+    // @ApiProperty()
+    // @IsOptional()
+    // type_id: string;
 
     @ApiProperty({
         type: [SiteData],
