@@ -25,7 +25,8 @@
     "dependencies": {
         "@faker-js/faker": "^7.5.0",
         "@line/bot-sdk": "^7.5.2",
-        "@nestjs/axios": "^0.1.0",
+        "@lokeshpathrabe/axiosservice": "^1.0.3",
+        "@nestjs/axios": "^0.1.1",
         "@nestjs/core": "^9.0.9",
         "@nestjs/jwt": "^9.0.0",
         "@nestjs/mapped-types": "^1.1.0",
@@ -33,6 +34,8 @@
         "@nestjs/passport": "^9.0.0",
         "@nestjs/platform-express": "^9.0.9",
         "@nestjs/swagger": "^6.0.5",
+        "axios": "^1.3.6",
+        "axios-service": "^1.4.4",
         "chalk": "4.1.2",
         "class-transformer": "^0.5.1",
         "class-validator": "^0.13.2",

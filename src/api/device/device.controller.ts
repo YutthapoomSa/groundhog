@@ -19,4 +19,11 @@ export class DeviceController {
     async findAll() {
         return await this.deviceService.findAll();
     }
+
+    @Get('shoot')
+    startShootingApi() {
+        setInterval(() => {
+            this.deviceService.shootApi();
+        }, 5000); // 5000 milliseconds = 5 seconds
+    }
 }

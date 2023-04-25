@@ -36,7 +36,7 @@ export class DeviceService implements OnApplicationBootstrap {
         private readonly typeModel: Model<TypeDB>,
     ) {}
     onApplicationBootstrap() {
-        //
+        // 
     }
     // ─────────────────────────────────────────────────────────────────────────────
 
@@ -115,15 +115,15 @@ export class DeviceService implements OnApplicationBootstrap {
                 battery: device_elk.battery ? device_elk.battery : null,
                 // coor_lat: device_elk.coor.lat ? device_elk.coor.lat : null,
                 // coor_lon: device_elk.coor.lon ? device_elk.coor.lon : null,
-                coor : {
-                        lat: device_elk.coor.lat ? device_elk.coor.lat : 0,
-                        lon: device_elk.coor.lon ? device_elk.coor.lon : 0,
-                    },
+                coor: {
+                    lat: device_elk.coor.lat ? device_elk.coor.lat : 0,
+                    lon: device_elk.coor.lon ? device_elk.coor.lon : 0,
+                },
                 date_data: device_elk.date_data,
                 // date_data: moment().format().toString(),
                 site: device_elk.siteList,
                 type: device_elk.typeList,
-            }
+            };
             console.log('deviceELK => ', JSON.stringify(deviceELK, null, 2));
             // ─────────────────────────────────────────────────────────────────────────────
             await axios
@@ -150,5 +150,53 @@ export class DeviceService implements OnApplicationBootstrap {
         } catch (error) {
             throw new InternalServerErrorException(error);
         }
+    }
+
+    async shootApi() {
+        const urlThunder = 'https://dc7a-119-76-182-47.ngrok-free.app/device';
+        const randomTemp = Math.floor(Math.random() * (40 - 10 + 1) + 10);
+        const randomHumidity = Math.floor(Math.random() * (100 - 0 + 1) + 0);
+        const data = {
+            serial_number: 'FWHOutdoor01',
+            device_name: 'FWH-Outdoor-01',
+            pm2: 25,
+            pm10: 0,
+            heat_index: 30,
+            humidity: randomHumidity,
+            temperature: randomTemp,
+            altitude: 0,
+            speed: 0,
+            light_detection: 0,
+            noise: 0,
+            carbon_dioxide: 0,
+            battery: 100,
+            date_data: '',
+            coor_lat: 13.88057708740234,
+            coor_lon: 100.5911178588867,
+            site: [
+                {
+                    site_name: 'ศูนย์ลมร้อน โรงพยาบาลค่ายวชิราวุธ',
+                    coor_lat: 13.88057708740234,
+                    coor_lon: 100.5911178588867,
+                },
+            ],
+            type: [
+                {
+                    type_name: 'outdoor',
+                    iframe_url:
+                        'http://202.44.231.125:3001/d/XmmX2TLVk/outdoortemplate?orgId=1&refresh=5s&var-device=site_name.keyword%7C%3D%7CFWH-Outdoor-01&var-device=type.keyword%7C%3D%7Coutdoor&kiosk&theme=light',
+                },
+            ],
+        };
+        const config = { timeout: 5000 };
+        // return this.axiosService.post(url, data, config);
+        await axios
+                .post(urlThunder, data, config)
+                .then((results) => {
+                    console.log('สถานะการยิง API: ', JSON.stringify(results.data, null, 2));
+                })
+                .catch((error) => {
+                    console.log('Failed to fetch -> ', error);
+                });
     }
 }
