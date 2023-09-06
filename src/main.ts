@@ -1,4 +1,4 @@
- import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { json, urlencoded } from 'express';
@@ -17,6 +17,7 @@ async function bootstrap() {
         origin: '*',
         methods: 'GET,PUT,PATCH,POST,DELETE,UPDATE,OPTIONS',
         maxAge: 3600,
+        
     });
     app.useGlobalPipes(new ValidationPipe());
     app.use(json({ limit: '300mb' }));
@@ -37,13 +38,19 @@ async function bootstrap() {
     // const pathProfile = pathUploadPath + '/profile';
     // if (!fs.existsSync(pathProfile)) fs.mkdirSync(pathProfile);
 
-    
+    // const axios = require('axios');
+
+    // axios
+    //     .get('http://jdiisrtarf.dyndns-server.com:9200/weather-station/_search', { auth: { username: 'elastic', password: 'P@ssw0rd2@22##' } })
+    //     .then((resp) => {
+    //         console.log(resp.data.hits.hits);
+    //     });
 
     // ────────────────────────────────────────────────────────────────────────────────
 
-    // const pathImageUser = pathUploadPath + '/image-user';
-    // if (!fs.existsSync(pathImageUser)) fs.mkdirSync(pathImageUser);
-    // app.useStaticAssets(path.resolve(__dirname, './../upload', 'image-user'), { prefix: '/userImage' });
+    const pathImageUser = pathUploadPath + '/image-user';
+    if (!fs.existsSync(pathImageUser)) fs.mkdirSync(pathImageUser);
+    app.useStaticAssets(path.resolve(__dirname, './../upload', 'image-user'), { prefix: '/userImage' });
 
     // const pathAssessment = pathUploadPath + '/imageAssessment';
     // if (!fs.existsSync(pathAssessment)) fs.mkdirSync(pathAssessment);
@@ -66,6 +73,6 @@ async function bootstrap() {
 
     // ─────────────────────────────────────────────────────────────────
 
-    await app.listen(3000);
+    await app.listen(3131);
 }
 bootstrap();

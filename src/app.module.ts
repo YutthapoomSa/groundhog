@@ -1,13 +1,10 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { DeviceModule } from './api/device/device.module';
-import { SiteModule } from './api/site/site.module';
-import { TypeModule } from './api/type/type.module';
 import { ConfigModule } from './config/config.module';
 import { ConfigService } from './config/config.service';
 import { LogService } from './services/log.service';
 import { ShareModule } from './share/share.module';
-
+import { TransactionModule } from './api/transaction/transaction.module';
 
 @Module({
     imports: [
@@ -17,12 +14,9 @@ import { ShareModule } from './share/share.module';
             inject: [ConfigService],
             useFactory: async (configService: ConfigService) => configService.getMongoConfig(),
         }),
-        DeviceModule,
-        SiteModule,
-        TypeModule,
-
+        TransactionModule,
     ],
     controllers: [],
     providers: [LogService],
 })
-export class AppModule { }
+export class AppModule {}
